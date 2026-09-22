@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy: #08111F;
+  --blue: #246BFE;
+  --purple: #6C63FF;
+  --cyan: #00B8D9;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Utility classes */
+.gradient-text {
+  background: linear-gradient(135deg, #246BFE, #6C63FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-label {
+  @apply inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-blue-600 bg-blue-50 rounded-full px-4 py-1.5 mb-5;
+}
+
+.btn-primary {
+  @apply inline-flex items-center gap-2 bg-blue-600 text-white font-semibold rounded-full px-7 py-3.5 transition-all hover:bg-blue-700 hover:-translate-y-0.5 hover:shadow-lg;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center gap-2 text-gray-700 font-semibold rounded-full px-7 py-3.5 border border-gray-200 transition-all hover:border-blue-500 hover:text-blue-600;
+}
+
+.btn-ghost {
+  @apply inline-flex items-center gap-2 text-white font-semibold rounded-full px-7 py-3.5 border border-white/20 bg-white/10 transition-all hover:bg-white/20;
+}
+
+.card-hover {
+  @apply transition-all duration-200 hover:-translate-y-1 hover:shadow-card-lg;
+}
+
+/* Fade in animation */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fadeUp 0.5s ease forwards; }
+
+@keyframes pulse-dot {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+.animate-pulse-dot { animation: pulse-dot 2s infinite; }
