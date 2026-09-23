@@ -19,6 +19,7 @@ const ALL_SERVICES = [
   { icon:'💬', title:'AEO', desc:'Answer Engine Optimization for featured snippets and direct-answer visibility.', href:'/ai-search/aeo/' },
   { icon:'💻', title:'SaaS SEO', desc:'Product-led SEO, topical authority building and competitor displacement for SaaS businesses.', href:'/services/saas-seo/' },
   { icon:'🤝', title:'B2B SEO', desc:'Demand generation, pipeline SEO and long-consideration-cycle content strategy.', href:'/services/b2b-seo/' },
+  { icon:'🏠', title:'Real Estate SEO', desc:'Locality landing pages, Google Business Profile and property-schema SEO for builders, brokers and agents.', href:'/services/real-estate-seo/' },
   { icon:'🔄', title:'SEO Migrations', desc:'Risk-managed migrations protecting organic traffic during platform changes or redesigns.', href:'/services/seo-migrations/' },
   { icon:'🔍', title:'SEO Audits', desc:'Comprehensive technical, content and authority audits with prioritised recommendations.', href:'/services/seo-audits/' },
 ]

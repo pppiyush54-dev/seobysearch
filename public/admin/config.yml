@@ -60,7 +60,9 @@ collections:
           - { label: "Enterprise SEO", value: "/services/enterprise-seo/" }
           - { label: "International SEO", value: "/services/international-seo/" }
           - { label: "Local SEO", value: "/services/local-seo/" }
+          - { label: "Real Estate SEO", value: "/services/real-estate-seo/" }
           - { label: "SaaS SEO", value: "/services/saas-seo/" }
+          - { label: "GEO (AI Search)", value: "/ai-search/geo/" }
           - { label: "SEO Audits", value: "/services/seo-audits/" }
           - { label: "SEO Migrations", value: "/services/seo-migrations/" }
           - { label: "Technical SEO", value: "/services/technical-seo/" }

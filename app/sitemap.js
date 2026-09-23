@@ -29,6 +29,7 @@ export default function sitemap() {
     { url: `${baseUrl}/services/international-seo/`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/services/saas-seo/`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/services/b2b-seo/`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/services/real-estate-seo/`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/services/seo-migrations/`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/services/seo-audits/`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/ai-search/`, changeFrequency: 'monthly', priority: 0.9 },
