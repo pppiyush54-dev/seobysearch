@@ -17,14 +17,76 @@ collections:
     delete: true
     slug: "{{slug}}"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "text", required: false }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Author", name: "author", widget: "string", default: "SEO By Search Team" }
-      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Title", name: "title", widget: "string", hint: "The H1 shown on the page." }
+      - { label: "Short Description", name: "description", widget: "text", required: false, hint: "Used on the blog listing card. Falls back to Meta Description below if left blank." }
       - { label: "Cover Image", name: "coverImage", widget: "image", required: false }
+
+      - { label: "SEO", name: "seo", widget: "object", collapsed: false, fields:
+          - { label: "SEO Title (meta title)", name: "seoTitle", widget: "string", required: false, hint: "Shown in the browser tab & Google's blue link. Falls back to Title above if left blank. Keep under ~60 characters." }
+          - { label: "Meta Description", name: "metaDescription", widget: "text", required: false, hint: "The snippet shown under your link in Google search results. Keep under ~155 characters." }
+          - { label: "Focus Keyword", name: "focusKeyword", widget: "string", required: false, hint: "The main phrase you're targeting. Reference only — check it appears in the Title, first paragraph, and one H2." }
+          - { label: "Canonical URL Override", name: "canonicalUrl", widget: "string", required: false, hint: "Leave blank unless this content is duplicated elsewhere and you need to point Google to a different URL." }
+          - { label: "Social Share Image (OG Image)", name: "ogImage", widget: "image", required: false, hint: "Shown when this post is shared on LinkedIn/WhatsApp/Twitter. Falls back to Cover Image if left blank." }
+          - { label: "Hide from Search Engines (noindex)", name: "noindex", widget: "boolean", default: false, hint: "Turn ON for test/draft posts you don't want Google to index." }
+        ]
+
+      - { label: "Author", name: "author", widget: "relation", collection: "authors", search_fields: ["name"], value_field: "{{slug}}", display_fields: ["name"], required: false, hint: "Pick from the Authors section. Add a new author there first if needed." }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Last Reviewed / Updated Date", name: "reviewedDate", widget: "datetime", required: false, hint: "Update this whenever you refresh an old post — tells Google (and AI search) the content is current." }
+
+      - { label: "Key Takeaways (TL;DR)", name: "keyTakeaways", widget: "list", required: false, hint: "3-5 short bullet points summarizing the post. Shown at the top of the page and helps AI search engines (ChatGPT, Google AI Overviews) quote your content accurately." }
+
+      - { label: "Schema Type", name: "schemaType", widget: "select", default: "BlogPosting", hint: "Leave as Article for normal posts. Use HowTo for step-by-step guides, Review when reviewing a specific tool/service.", options:
+          - { label: "Article (default)", value: "BlogPosting" }
+          - { label: "HowTo (step-by-step guide)", value: "HowTo" }
+          - { label: "Review", value: "Review" }
+        ]
+      - { label: "HowTo Steps (only if Schema Type = HowTo)", name: "howToSteps", widget: "list", required: false, fields:
+          - { label: "Step Title", name: "stepTitle", widget: "string" }
+          - { label: "Step Text", name: "stepText", widget: "text" }
+        ]
+      - { label: "Review: Item Name (only if Schema Type = Review)", name: "reviewItemName", widget: "string", required: false, hint: "The tool/service/product being reviewed, e.g. 'Rank Math SEO Plugin'" }
+      - { label: "Review: Rating out of 5 (only if Schema Type = Review)", name: "reviewRating", widget: "number", required: false, min: 1, max: 5 }
+
+      - { label: "FAQ", name: "faq", widget: "list", required: false, hint: "Add common questions related to this post. Rendered on the page and marked up so it can appear in AI search answers.", fields:
+          - { label: "Question", name: "question", widget: "string" }
+          - { label: "Answer", name: "answer", widget: "text" }
+        ]
+
+      - { label: "Related Service Page", name: "relatedService", widget: "select", required: false, hint: "Link this post to the service it supports — adds an internal link + helps that service page rank.", options:
+          - { label: "AI SEO", value: "/services/ai-seo/" }
+          - { label: "B2B SEO", value: "/services/b2b-seo/" }
+          - { label: "E-commerce SEO", value: "/services/ecommerce-seo/" }
+          - { label: "Enterprise SEO", value: "/services/enterprise-seo/" }
+          - { label: "International SEO", value: "/services/international-seo/" }
+          - { label: "Local SEO", value: "/services/local-seo/" }
+          - { label: "SaaS SEO", value: "/services/saas-seo/" }
+          - { label: "SEO Audits", value: "/services/seo-audits/" }
+          - { label: "SEO Migrations", value: "/services/seo-migrations/" }
+          - { label: "Technical SEO", value: "/services/technical-seo/" }
+          - { label: "Free SEO Audit", value: "/free-seo-audit/" }
+        ]
+
+      - { label: "Tags", name: "tags", widget: "list", required: false }
       - { label: "Draft (hide from site)", name: "draft", widget: "boolean", default: false }
       - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "authors"
+    label: "Authors"
+    folder: "content/authors"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    identifier_field: "name"
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Job Title", name: "jobTitle", widget: "string", hint: "e.g. Founder & SEO Strategist" }
+      - { label: "Photo", name: "photo", widget: "image", required: false }
+      - { label: "Short Bio", name: "bio", widget: "text", hint: "2-4 sentences. Mention real experience/credentials — this is what Google checks for E-E-A-T." }
+      - { label: "Credentials", name: "credentials", widget: "list", required: false, hint: "e.g. '12 years in SEO', 'Google Ads Certified'" }
+      - { label: "LinkedIn URL", name: "linkedin", widget: "string", required: false }
+      - { label: "Twitter/X URL", name: "twitter", widget: "string", required: false }
+      - { label: "Areas of Expertise", name: "knowsAbout", widget: "list", required: false, hint: "e.g. Technical SEO, GEO/AI Search, Local SEO" }
 
   - name: "pages"
     label: "Pages"

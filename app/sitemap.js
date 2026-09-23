@@ -1,6 +1,22 @@
+import { getAllBlogPosts, getAllAuthors } from '../lib/content'
+
 export default function sitemap() {
   const baseUrl = 'https://seobysearch.com'
   const now = new Date().toISOString()
+
+  const blogRoutes = getAllBlogPosts().map(post => ({
+    url: `${baseUrl}/blog/${post.slug}/`,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+    lastModified: post.reviewedDate || post.date || now,
+  }))
+
+  const authorRoutes = getAllAuthors().map(author => ({
+    url: `${baseUrl}/blog/author/${author.slug}/`,
+    changeFrequency: 'monthly',
+    priority: 0.4,
+    lastModified: now,
+  }))
 
   const routes = [
     { url: baseUrl, changeFrequency: 'weekly', priority: 1 },
@@ -33,8 +49,8 @@ export default function sitemap() {
     { url: `${baseUrl}/cookies/`, changeFrequency: 'yearly', priority: 0.3 },
   ]
 
-  return routes.map(route => ({
-    ...route,
+  return [...routes, ...blogRoutes, ...authorRoutes].map(route => ({
     lastModified: now,
+    ...route,
   }))
 }
