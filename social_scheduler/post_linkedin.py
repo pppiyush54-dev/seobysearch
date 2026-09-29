@@ -58,9 +58,11 @@ def upload_image(token: str, person_urn: str, image_url: str) -> str | None:
         return None
 
 
-def post_linkedin(text: str, image_url: str | None = None) -> dict:
-    token = os.environ.get("LINKEDIN_ACCESS_TOKEN")
-    person_urn = os.environ.get("LINKEDIN_PERSON_URN")
+def post_linkedin(text: str, image_url: str | None = None,
+                  credentials: dict | None = None) -> dict:
+    creds = credentials or {}
+    token = creds.get("access_token") or os.environ.get("LINKEDIN_ACCESS_TOKEN")
+    person_urn = creds.get("person_urn") or os.environ.get("LINKEDIN_PERSON_URN")
 
     if not token:
         return {"success": False, "error": "LINKEDIN_ACCESS_TOKEN env var not set"}
@@ -117,5 +119,5 @@ def post_linkedin(text: str, image_url: str | None = None) -> dict:
 
 if __name__ == "__main__":
     data = json.loads(sys.stdin.read())
-    result = post_linkedin(data["text"], data.get("image_url"))
+    result = post_linkedin(data["text"], data.get("image_url"), data.get("credentials"))
     print(json.dumps(result))

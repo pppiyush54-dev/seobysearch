@@ -69,11 +69,13 @@ def upload_image_twitter(api_key: str, api_secret: str,
         return None
 
 
-def post_twitter(text: str, image_url: str | None = None) -> dict:
-    api_key = os.environ.get("TWITTER_API_KEY")
-    api_secret = os.environ.get("TWITTER_API_SECRET")
-    access_token = os.environ.get("TWITTER_ACCESS_TOKEN")
-    access_secret = os.environ.get("TWITTER_ACCESS_TOKEN_SECRET")
+def post_twitter(text: str, image_url: str | None = None,
+                 credentials: dict | None = None) -> dict:
+    creds = credentials or {}
+    api_key      = creds.get("api_key")      or os.environ.get("TWITTER_API_KEY")
+    api_secret   = creds.get("api_secret")   or os.environ.get("TWITTER_API_SECRET")
+    access_token = creds.get("access_token") or os.environ.get("TWITTER_ACCESS_TOKEN")
+    access_secret= creds.get("access_secret")or os.environ.get("TWITTER_ACCESS_TOKEN_SECRET")
 
     missing = [k for k, v in {
         "TWITTER_API_KEY": api_key, "TWITTER_API_SECRET": api_secret,
@@ -113,5 +115,5 @@ def post_twitter(text: str, image_url: str | None = None) -> dict:
 
 if __name__ == "__main__":
     data = json.loads(sys.stdin.read())
-    result = post_twitter(data["text"], data.get("image_url"))
+    result = post_twitter(data["text"], data.get("image_url"), data.get("credentials"))
     print(json.dumps(result))
